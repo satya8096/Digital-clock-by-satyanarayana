@@ -1,0 +1,225 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+
+    <!-- Favocon Image -->
+
+    <link rel="shortcut icon" href="./pngwing.com (5).png" type="image/x-icon">
+
+    <!-- Google font -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation:wght@700&family=Itim&family=Kalam:wght@400;700&family=Libre+Baskerville&family=Merriweather&family=Niconne&family=Oleo+Script&family=Shrikhand&family=Signika+Negative:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- CSS Code -->
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            background-color: rgb(35, 30, 30);
+        }
+        #time{
+            font-size: 35px;
+            color: white;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            text-shadow: 1px 1px 15px rgb(255, 255, 255);
+            letter-spacing: 1.5px;
+        }
+        #clock{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 80px;
+            padding: 10px 20px 0px 20px;
+        }
+        #date{
+            color: white;
+            font-size: 28px;
+            margin: 15px 30px;
+            font-family: 'Itim', cursive;
+            letter-spacing: 1.5px;
+            text-shadow: 1px 1px 15px rgb(255, 255, 255);
+        }
+        .digital{
+            text-align: center;
+            background-color: rgb(133, 133, 255);
+            padding-bottom: 25px;
+            border-radius: 10px;
+            width: 600px;
+        }
+        #message{
+            color: white;
+            text-align: center;
+            font-size: 28px;
+            margin-top: 15px;
+            letter-spacing: 1.5px;
+            font-family: 'Itim', cursive;
+            text-shadow: 1px 1px 15px rgb(255, 255, 255);
+        }
+        img{
+            margin-top: 15px;
+        }
+
+        /* Media Queries */
+
+        @media screen and (max-width:540px) {
+            #time{
+                font-size: 17px;
+            }
+            #date{
+                font-size: 17px;
+            }
+            #message{
+                font-size: 17px;
+            }
+            #clock{
+                height: 50px;
+            }
+            .digital{
+                padding-bottom: 10px;
+                width: 330px;
+            }
+            img{
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Content -->
+
+    <div class="container">
+        <div class="digital">
+            <img src="./pngwing.com (5).png" alt="Clock" width="240px">
+            <div id="clock">
+                <p id="time"></p>
+            </div>
+            <p id="date"></p>
+            <p id="message"></p>
+        </div>
+
+    </div>
+
+
+    <!-- JavaScript -->
+
+    <script>
+
+        // Getting the All Details 
+
+        setInterval(()=>{
+            let time = new Date()
+
+            let hour = time.getHours()
+
+            let min = time.getMinutes()
+
+            let sec = time.getSeconds()
+
+            let milli = time.getMilliseconds()
+
+            let day = time.getDay()
+
+            let date = time.getDate()
+
+            let month = time.getMonth()
+
+            let year = time.getFullYear()
+
+            let hour1,min1,sec1,milli1;
+
+            // Check the Wishes Conditions
+
+            if(hour<12){
+                document.getElementById("message").innerHTML = "Good Morning Satyanarayana!"
+                document.querySelector("body").style.backgroundColor = "white"
+
+            }
+            else if(hour>=12 && hour<15){
+                document.getElementById("message").innerHTML = "Good Afternoon Satyanarayana!"
+                document.querySelector("body").style.backgroundColor = "choclate"
+
+            }
+            else if(hour>=15 && hour<21){
+                document.getElementById("message").innerHTML = "Good Evening Satyanarayana!"
+                document.querySelector("body").style.backgroundColor = "choclate"
+
+            }
+            else if(hour>=21){
+                document.getElementById("message").innerHTML = "Good Night Satyanarayana!"
+                document.querySelector("body").style.backgroundColor = "black"
+
+            }
+
+            // To check the AM or PM
+
+            let noon;
+
+            if(hour<12){
+                noon = "AM"
+            }
+            else{
+                noon = "PM"
+            }
+
+            // Incerting the zeros
+
+            if(hour>12){
+                hour1 = hour-12
+                if(hour1<10){
+                    hour1 = '0'+hour1
+                }
+                else{
+                    hour1 = +hour-12
+                }
+            }
+            else{
+                hour1 = '0'+hour
+            }
+            if(min<10){
+                min1 = '0'+min
+            }
+            else{
+                min1 = min
+            }
+            if(sec<10){
+                sec1 = '0'+sec
+            }
+            else{
+                sec1 = sec
+            }
+            if(milli<10){
+                milli1 = '00'+milli
+            }
+            else if(milli<100){
+                milli1 = '0'+milli
+            }
+            else{
+                milli1 = milli
+            }
+
+            // Month and Day names
+
+            let months = ["January","February","March","April","May","June","July","August","September","October","November","December"]
+
+            let days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+
+            document.getElementById('time').innerHTML = `${hour1}h : ${min1}m : ${sec1}s : ${milli1}ms  ${noon}`
+            document.getElementById('date').innerHTML = `${days[day]} / ${date} / ${months[month]} /  ${year}`
+        })
+
+    </script>
+</body>
+</html>
